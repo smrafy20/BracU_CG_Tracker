@@ -1,0 +1,12 @@
+cgpa_calculator/
+├── app.py
+├── config.py
+├── pdf_processor.py
+├── static/
+│   ├── css/
+│   │   └── style.css
+│   └── js/
+│       └── main.js
+└── templates/
+    ├── index.html
+    └── results.html

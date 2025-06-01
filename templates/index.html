@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BRAC University CGPA Calculator</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>BRAC University CGPA Calculator</h1>
+        </header>
+        
+        <section class="upload-section">
+            <h2>Upload Your Grade Sheet</h2>
+            <form id="upload-form" enctype="multipart/form-data">
+                <div class="file-input">
+                    <input type="file" id="grade-sheet" name="grade_sheet" accept=".pdf" required>
+                    <label for="grade-sheet">Choose PDF file</label>
+                </div>
+                <button type="submit" class="btn primary">Upload and Extract</button>
+            </form>
+        </section>
+        
+        <section class="courses-section" id="courses-container" style="display: none;">
+            <h2>Extracted Courses</h2>
+            <p>You can edit any values if needed or add/remove courses.</p>
+            
+            <div class="table-actions">
+                <button id="add-course" class="btn secondary">Add Course</button>
+                <button id="calculate-cgpa" class="btn primary">Calculate CGPA</button>
+            </div>
+            
+            <div class="table-container">
+                <table id="courses-table">
+                    <thead>
+                        <tr>
+                            <th>Course Code</th>
+                            <th>Course Title</th>
+                            <th>Credits</th>
+                            <th>Grade</th>
+                            <th>Grade Points</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody id="courses-body">
+                        <!-- Courses will be added here dynamically -->
+                    </tbody>
+                </table>
+            </div>
+        </section>
+        
+        <section class="results-section" id="results-container" style="display: none;">
+            <h2>CGPA Calculation Results</h2>
+            <div class="results-card">
+                <div class="result-item">
+                    <span class="label">Total Credits:</span>
+                    <span id="total-credits" class="value">0</span>
+                </div>
+                <div class="result-item">
+                    <span class="label">Total Grade Points:</span>
+                    <span id="total-points" class="value">0</span>
+                </div>
+                <div class="result-item cgpa">
+                    <span class="label">CGPA:</span>
+                    <span id="cgpa-value" class="value">0.00</span>
+                </div>
+            </div>
+            <div class="calculation-details" id="calculation-details" style="display: none;">
+                <h3>Calculation Details</h3>
+                <div class="details-section">
+                    <h4>Included Courses:</h4>
+                    <ul id="included-courses-list"></ul>
+                </div>
+                <div class="details-section">
+                    <h4>Excluded Courses:</h4>
+                    <ul id="excluded-courses-list"></ul>
+                </div>
+            </div>
+            <div class="note">
+                <p><strong>Note:</strong> Courses marked with (NT) and ENG091 are excluded from CGPA calculation. Courses marked with (RT) are included.</p>
+            </div>
+        </section>
+    </div>
+    
+    <script src="{{ url_for('static', filename='js/main.js') }}"></script>
+</body>
+</html>
