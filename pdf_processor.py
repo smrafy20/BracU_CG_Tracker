@@ -1,3 +1,4 @@
+
 import re
 import PyPDF2
 from io import BytesIO
@@ -46,7 +47,7 @@ def extract_grades_from_pdf(pdf_path):
                     })
 
         # Additional specific search for MAT110, MAT120, MAT215 if not found by main pattern
-        target_courses = ['MAT110', 'MAT120', 'MAT215']
+        target_courses = ['MAT110','MAT120','MAT215']
         found_course_codes = [course['course_code'] for course in courses]
 
         for target_course in target_courses:
@@ -55,7 +56,7 @@ def extract_grades_from_pdf(pdf_path):
                 for page_num in range(len(reader.pages)):
                     page = reader.pages[page_num]
                     text = page.extract_text()
-
+                    
                     # Look for the specific course code with more flexible pattern
                     # This pattern specifically looks for MAT110/MAT120/MAT215 followed by course data
                     specific_pattern = rf'{target_course}\s+([^0-9]*?)\s+(\d+\.\d+)\s+([A-Z][+-]?(?:\s*\([A-Z]{{2}}\))?)\s+(\d+\.\d+)'
@@ -86,3 +87,4 @@ def extract_grades_from_pdf(pdf_path):
         raise ValueError(f"Error processing PDF: {str(e)}")
 
     return courses
+

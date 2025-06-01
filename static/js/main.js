@@ -64,6 +64,53 @@ document.addEventListener('DOMContentLoaded', function() {
             grade_points: '0.00'
         });
     });
+
+    // Add missing math courses with exact titles from the grade sheet
+    addMissingMathBtn.addEventListener('click', function() {
+        const missingMathCourses = [
+            {
+                course_code: 'MAT110',
+                course_title: 'MATHEMATICS I: DIFFERENTIAL CALCULUS & COORDINATE GEOMETRY',
+                credits: '3.00',
+                grade: '',
+                grade_points: '0.00'
+            },
+            {
+                course_code: 'MAT120',
+                course_title: 'MATHEMATICS II: INTEGRAL CALCULUS & DIFFERENTIAL EQUATIONS',
+                credits: '3.00',
+                grade: '',
+                grade_points: '0.00'
+            },
+            {
+                course_code: 'MAT215',
+                course_title: 'MATHEMATICS III: COMPLEX VARIABLES & LAPLACE TRANSFORMATIONS',
+                credits: '3.00',
+                grade: '',
+                grade_points: '0.00'
+            }
+        ];
+
+        // Check which courses are already present
+        const existingCourses = Array.from(coursesBody.querySelectorAll('tr')).map(row =>
+            row.querySelector('[data-field="course_code"]').textContent.trim()
+        );
+
+        // Add only missing courses
+        let addedCount = 0;
+        missingMathCourses.forEach(course => {
+            if (!existingCourses.includes(course.course_code)) {
+                addCourseToTable(course);
+                addedCount++;
+            }
+        });
+
+        if (addedCount > 0) {
+            alert(`${addedCount} missing math course(s) have been added. Please fill in the grades and grade points.`);
+        } else {
+            alert('All math courses are already present in the table.');
+        }
+    });
     
     // Calculate CGPA
     calculateBtn.addEventListener('click', function() {
@@ -183,6 +230,7 @@ document.addEventListener('DOMContentLoaded', function() {
             'C-': 1.7,
             'D+': 1.3,
             'D': 1.0,
+            'D-': 0.7,
             'F': 0.0
         };
         
